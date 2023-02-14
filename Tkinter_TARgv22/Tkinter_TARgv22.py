@@ -1,4 +1,5 @@
 from tkinter import*
+from tkinter import ttk
 k=0
 def klikker(event):
     global k
@@ -22,10 +23,39 @@ def valik():
     text=var.get()
     ent.insert(END,text)
 
+def uus_aken(ind:int):
+    def tab_valik(ind:int):
+        uusaken.title(texts[ind])
+    uusaken=Toplevel()
+    tabs=ttk.Notebook(uusaken)
+    texts=["Esimene","Teine","Kolmas","Fourth"]
+    tab=[]
+    for i in range(len(texts)):
+        tab.append("tab"+str(i))#tab0,tab1,tab2,tab3
+        tab[i]=Frame(tabs)
+        tabs.add(tab[i],text=texts[i])
+        tab[i].bind("<Button-1>",tab_valik(i))
+    tabs.grid(row=0,column=0)
+    tabs.select(ind)
+
+
+    uusaken.title(texts[ind])
+    uusaken.mainloop()
 
 aken=Tk()
 aken.title("Minu esimene aken")
 aken.geometry("600x300")
+m=Menu(aken)
+aken.config(menu=m)
+m1=Menu(m)
+m.add_cascade(label="Kaardid",menu=m1)
+m1.add_command(label="1.Kaart",accelerator="Command+A",command=lambda:uus_aken(0))
+m1.add_command(label="2.Kaart",accelerator="Command+B",command=lambda:uus_aken(1))
+m1.add_command(label="3.Kaart",accelerator="Command+C",command=lambda:uus_aken(2))
+m1.add_command(label="4.Kaart",accelerator="Command+D",command=lambda:uus_aken(3))
+
+
+
 lbl=Label(aken,
           text=" ",
           font='Arial 20',
