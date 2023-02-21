@@ -24,21 +24,21 @@ def valik():
     ent.insert(END,text)
 
 def uus_aken(ind:int):
-    def tab_valik(ind:int):
+    def tab_valik(*ind):
+        ind=tabs.index(tabs.select())
         uusaken.title(texts[ind])
     uusaken=Toplevel()
     tabs=ttk.Notebook(uusaken)
-    texts=["Esimene","Teine","Kolmas","Fourth"]
+    texts=["Esimene","Teine","Kolmas","Neljas"]
     tab=[]
     for i in range(len(texts)):
-        tab.append("tab"+str(i))#tab0,tab1,tab2,tab3
-        tab[i]=Frame(tabs)
-        tabs.add(tab[i],text=texts[i])
-        tab[i].bind("<Button-1>",tab_valik(i))
+            tab.append("tab"+str(i)) #tab0,tab1,tab2,tab3
+            tab[i]=Frame(tabs)
+            tabs.add(tab[i],text=texts[i])
     tabs.grid(row=0,column=0)
     tabs.select(ind)
-
-
+    ind=tabs.index(tabs.select())
+    tabs.bind("<<NotebookTabChanged>>",tab_valik)#
     uusaken.title(texts[ind])
     uusaken.mainloop()
 
